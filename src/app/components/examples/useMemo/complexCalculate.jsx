@@ -13,9 +13,7 @@ const ComplexCalculateExample = () => {
     const [value, setValue] = useState(10);
     const [otherState, setOtherState] = useState(false);
 
-    const buttonColor = useMemo(() => ({
-        value: otherState ? "primary" : "secondary"
-    }), [otherState]);
+    const buttonColor = otherState ? "primary" : "secondary";
     useEffect(() => {
         console.log("render button color");
     }, [buttonColor]);
@@ -43,7 +41,7 @@ const ComplexCalculateExample = () => {
             <CardWrapper>
                 <SmallTitle>Зависимость от сторонних setState</SmallTitle>
                 <button
-                    className={"ctn mx-2 btn-" + buttonColor.value}
+                    className={"ctn mx-2 btn-" + buttonColor}
                     onClick={() => setOtherState(prevState => !prevState)}
                 >
                     Change Color
