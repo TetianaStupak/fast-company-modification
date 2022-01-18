@@ -6,7 +6,7 @@ import SmallTitle from "../../common/typografy/smallTitle";
 const ProgrammableActionsExample = () => {
     const inputRef = useRef();
     const handleClick = () => {
-        console.log(inputRef.current);
+        console.log(inputRef.current.clientWidth);
         inputRef.current.focus();
     };
     const handleClickWidth = () => {
