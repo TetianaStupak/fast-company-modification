@@ -34,7 +34,7 @@ const UseCallBackExample = () => {
             <SmallTitle>Example</SmallTitle>
             <Divider />
             <p>Render withOutCallback:{withOutCallback.current}</p>
-            <p>Render withOutCallback:{withCallback.current}</p>
+            <p>Render withCallback:{withCallback.current}</p>
             <label htmlFor="email" className="form-label">Email</label>
             <input
                 type="email"
