@@ -46,6 +46,6 @@ const Component = ({ num }) => {
     return <div>{num} Компонент списка</div>;
 };
 Component.propTypes = {
-    num: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  num: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 export default ChildrenExercise;

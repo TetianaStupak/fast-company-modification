@@ -13,49 +13,32 @@ const EditUserPage = () => {
         profession: ""
     });
     const [professions, setProfession] = useState([]);
-    const [qualities, setQualities] = useState({});
+
     const getProfessionById = (id) => {
         for (const prof in professions) {
             const profData = professions[prof];
             if (profData._id === id) return profData;
         }
     };
-    const getQualities = (elements) => {
-        const qualitiesArray = [];
-        for (const elem of elements) {
-            for (const quality in qualities) {
-                if (elem.value === qualities[quality]._id) {
-                    qualitiesArray.push(qualities[quality]);
-                }
-            }
-        }
-        return qualitiesArray;
-    };
-    const handleSubmit = () => {
-        const { profession, qualities } = data;
+
+    const handleSubmit = (data) => {
+        const { profession } = data;
         api.users
             .update(userId, {
                 ...data,
-                profession: getProfessionById(profession),
-                qualities: getQualities(qualities)
+                profession: getProfessionById(profession)
             })
             .then((data) => history.push(`/users/${data._id}`));
-        console.log(data);
-    };
-    const transformData = (data) => {
-        return data.map((qual) => ({ label: qual.name, value: qual._id }));
     };
     useEffect(() => {
         setIsLoading(true);
-        api.users.getById(userId).then(({ profession, qualities, ...data }) =>
+        api.users.getById(userId).then(({ profession, ...data }) =>
             setData((prevState) => ({
                 ...prevState,
                 ...data,
-                qualities: transformData(qualities),
                 profession: profession._id
             }))
         );
-        api.qualities.fetchAll().then((data) => setQualities(data));
         api.professions.fetchAll().then((data) => setProfession(data));
     }, []);
     useEffect(() => {
@@ -86,20 +69,17 @@ const EditUserPage = () => {
                         <FormComponent
                             onSubmit={handleSubmit}
                             validatorConfig={validatorConfig}
+                            defaultData={data}
                         >
-                            <TextField
-                                label="Имя"
-                                name="name"
-                            />
-                            <TextField
-                                label="Электронная почта"
-                                name="email"
-                            />
+                            <TextField label="Имя" name="name" autoFocus />
+                            <TextField label="Электронная почта" name="email" />
                             <SelectField
                                 label="Выбери свою профессию"
                                 defaultOption="Choose..."
                                 options={professions}
+                                name="profession"
                             />
+
                             <button
                                 type="submit"
                                 className="btn btn-primary w-100 mx-auto"
